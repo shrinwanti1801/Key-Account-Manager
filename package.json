@@ -5,5 +5,16 @@
     "mysql2": "^3.12.0",
     "nodemon": "^3.1.9",
     "winston": "^3.17.0"
-  }
+  },
+  "name": "kam",
+  "version": "1.0.0",
+  "description": "This is KAM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Sagar",
+  "license": "ISC"
 }
