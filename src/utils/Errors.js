@@ -1,6 +1,5 @@
-const { error } = require("./ErrorResponse");
 
-class AppError extends error{
+class AppError extends Error{
     constructor(message,stausCode){
         super(message);
         this.stausCode=stausCode;
