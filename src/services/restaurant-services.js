@@ -16,9 +16,7 @@ const createRestaurant = async (data) => {
 // Service to get a restaurant by ID
 const getRestaurantById = async (id) => {
     try {
-        console.log("Rest Servicee  id-> ",id);
         const result = await restaurants.get(id);
-        console.log("Rest Servicee -> ",result);
         return result;
     } catch (error) {
         throw error; // Pass the error to be handled by the controller
