@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// importing middlewares for Pocs
+// importing middlewares for orders
 const {
     validateCreateOrder,
     validateUpadteOrder,
@@ -9,7 +9,7 @@ const {
     validateRestaurantId
 } = require('../../middlewares/orders-middleware');
 
-// importing controllers for Pocs
+// importing controllers for orders
 const {
     createOrderController,
     getOrderByIdController,

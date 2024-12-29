@@ -3,17 +3,18 @@ const {ErrorResponse, AppError}=require("../utils/index");
 const {SuccessResponse}=require("../utils/index");
 const { StatusCodes } = require('http-status-codes');
 
-// create order validate
-const validateCreateOrder=async (req,res,next)=>{
+// create Interaction, validate
+const validateCreateInteraction=async (req,res,next)=>{
     try{
         // validation
         const { restaurant_id,
-               order_date,
-               order_amount,
-               status }=req.body;
+                interaction_date,
+                details,
+                order_placed }=req.body;
+
 
         //console.log(name,address);
-        if(!restaurant_id || !order_date || !order_amount || !status){
+        if(!restaurant_id || !interaction_date || !details || order_placed===undefined || order_placed===null){
             ErrorResponse.error=new AppError(["Fields are required"], 400);;
             return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
         }
@@ -25,24 +26,24 @@ const validateCreateOrder=async (req,res,next)=>{
     }
 }
 
-// update order , validation
-const validateUpadteOrder = (req, res, next) => {
+// update Interaction , validation
+const validateUpadteInteraction = (req, res, next) => {
 
     const { id } = req.params;
 
     const { restaurant_id,
-            order_date,
-            order_amount,
-            status }=req.body;
+            interaction_date,
+            details,
+            order_placed }=req.body;
 
     // Check if ID is provided
     if (!id) {
-        const error = new AppError(["order ID is required"], StatusCodes.BAD_REQUEST);
+        const error = new AppError(["interaction ID is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
 
     // Check if data is provided
-    if (!restaurant_id && !order_date && !order_amount && !status) {
+    if (!restaurant_id && !interaction_date && !details && (order_placed===undefined || order_placed===null)) {
         const error = new AppError(["All feilds are missing"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
@@ -50,19 +51,19 @@ const validateUpadteOrder = (req, res, next) => {
     next();
 };
 
-// Delete order, Validation
-const validateDeleteOrder = (req, res, next) => {
+// Delete Interaction, Validation
+const validateDeleteInteraction = (req, res, next) => {
     const { id } = req.params;
     
     if (!id) {
-        const error = new AppError(["Order ID is required"], StatusCodes.BAD_REQUEST);
+        const error = new AppError(["Interaction ID is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
 
     next();
 };
 
-// Get All Orders of a restaurant, Validation
+// Get All Interactions of a restaurant, Validation
 const validateRestaurantId = (req, res, next) => {
     const { restaurant_id } = req.params;
     // console.log("Yes");
@@ -77,8 +78,8 @@ const validateRestaurantId = (req, res, next) => {
 
 // export all middlewares
 module.exports={
-    validateCreateOrder,
-    validateUpadteOrder,
-    validateDeleteOrder,
+    validateCreateInteraction,
+    validateUpadteInteraction,
+    validateDeleteInteraction,
     validateRestaurantId
 }
