@@ -80,11 +80,13 @@ class CrudRepository {
     // Get by ID
     async get(id) {
         try {
+            //console.log("id");
             const query = `SELECT * FROM ${this.tableName} WHERE id = ?`;
             const [response] = await db.query(query, [id]);
     
             //console.log("Query Response ->", response);
     
+            
             // Check if the resource exists
             if (response.length === 0) {
                 throw new AppError(
@@ -93,6 +95,7 @@ class CrudRepository {
                 );
             }
     
+            
             return response[0]; // Return the first matching record
         } catch (error) {
             console.error("Error in get method ->", error);
