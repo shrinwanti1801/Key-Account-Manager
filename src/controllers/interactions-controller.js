@@ -1,6 +1,7 @@
 
 var {SuccessResponse,ErrorResponse, AppError}=require('../utils/index');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // importing services for interactions
 const { createInteraction,
@@ -22,6 +23,7 @@ const createInteractionController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(201).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in createInteractionController`)
         ErrorResponse = new AppError([`${error.message || 'Internal Server Error'}`],`${error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR}`);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -36,6 +38,7 @@ const getInteractionByIdController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getInteractionByIdController`)
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -51,6 +54,7 @@ const getAllInteractionsByRestaurantId = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllInteractionsByRestaurantId`)
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -64,6 +68,7 @@ const getAllInteractionsController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllInteractionsController`)
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -80,6 +85,7 @@ const updateInteractionController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in updateInteractionController`)
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -95,6 +101,7 @@ const deleteInteractionController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in deleteInteractionController`)
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }

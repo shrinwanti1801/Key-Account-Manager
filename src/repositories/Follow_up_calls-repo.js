@@ -1,5 +1,6 @@
 const CrudRepository = require('./crud_repo');
 const {db}=require('../config/index');
+const {Logger}=require('../config/index');
 
 // creating FollowUpCalls class extending all the properties of CrudRepository
 class FollowUpCalls extends CrudRepository {
@@ -21,6 +22,7 @@ class FollowUpCalls extends CrudRepository {
             const [response]=await db.query(query,[restaurant_id]);
             //console.log(response);
             if(response?.count===0){
+                Logger.warn(`No Restaurant found for Restaurant_id ${restaurant_id} in table restaurant`);
                 throw new AppError([
                     `No Restaurant found for Restaurant_id ${restaurant_id} in table restaurant `],
                     StatusCodes.NOT_FOUND
@@ -36,6 +38,7 @@ class FollowUpCalls extends CrudRepository {
             const [PocResponse]=await db.query(query,[data?.poc_id]);
 
             if(PocResponse?.count===0){
+                Logger.warn(`No POCs found for pocs_id ${data?.poc_id} in table POCs table`);
                 throw new AppError([
                     `No POCs found for pocs_id ${data?.poc_id} in table POCs table `],
                     StatusCodes.NOT_FOUND
@@ -46,6 +49,7 @@ class FollowUpCalls extends CrudRepository {
             return this.create(data);
         }
         catch(error){
+            Logger.error(`Error in createFollowUpCalls method`);
             console.log("Error in createFollowUpCalls method -> ",error);
 
             // Handel Unexpected Error
@@ -76,6 +80,7 @@ class FollowUpCalls extends CrudRepository {
             const [RestaurantResponse] = await db.query(query,[restaurant_id]);
 
             if(RestaurantResponse.length===0){
+                Logger.warn(`No Restaurant found for Restaurant_id ${restaurant_id} in table restaurants`);
                 throw new AppError([
                     `No Restaurant found for Restaurant_id ${restaurant_id} in table restaurants`],
                     StatusCodes.NOT_FOUND
@@ -93,9 +98,11 @@ class FollowUpCalls extends CrudRepository {
             const [response] = await db.query(query,[restaurant_id]);
 
             // Return all followUpCalls for the Restaurant
+            Logger.info(`Fetched all Follow Up Calls by Restaurant ID`);
             return response;
         }
         catch(error){
+            Logger.error(`Error in getAllFollowUpCallsByRestaurantId method`);
             console.log("Error in getAllFollowUpCallsByRestaurantId method -> ",error);
 
             // Handel Unexpected Error
@@ -127,6 +134,7 @@ class FollowUpCalls extends CrudRepository {
             // console.log(RestaurantResponse);
 
             if(RestaurantResponse.count===0){
+                Logger.warn(`No POCs found for poc_id ${poc_id} in table pocs`);
                 throw new AppError([
                     `No POCs found for poc_id ${poc_id} in table pocs`],
                     StatusCodes.NOT_FOUND
@@ -144,9 +152,11 @@ class FollowUpCalls extends CrudRepository {
 
             //console.log(response);
             // Return all followUpCalls for the poc_id
+            Logger.info(`Fetched All followUpCalls for the poc_id`);
             return response;
         }
         catch(error){
+            Logger.error(`Error in getAllFollowUpCallsByPOCs method`);
             console.log("Error in getAllFollowUpCallsByPOCs method -> ",error);
 
             // Handel Unexpected Error

@@ -2,6 +2,7 @@ const CrudRepository = require('./crud_repo');
 const {db}=require('../config/server-config');
 const {AppError}=require('../utils/index');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // creating resturant class extending all the properties of CrudRepository
 class Restaurants extends CrudRepository {
@@ -39,17 +40,20 @@ class Restaurants extends CrudRepository {
     
             // Check if any rows were affected (resource deleted)
             if (response.affectedRows === 0) {
+                Logger.warn(`Resource with ID ${id} not found in table ${this.tableName}`);
                 throw new AppError(
                     [`Resource with ID ${id} not found in table ${this.tableName}`],
                     StatusCodes.NOT_FOUND
                 );
             }
     
+            Logger.info(`Resource with ID ${id} successfully deleted`);
             return {
                 message: `Resource with ID ${id} successfully deleted`,
                 deleted: true,
             };
         } catch (error) {
+            Logger.error(`Error in destroy method`);
             console.error("Error in destroy method ->", error);
     
             // Handle unexpected errors

@@ -34,6 +34,7 @@ class Auth extends CrudRepository{
             //  console.log(isAlreadyPresent[0][0].count);
              if(isAlreadyPresent[0][0].count!=0)
              {
+                
                 throw new AppError([
                     `User Already Exists for email is ${email}`],
                     StatusCodes.CONFLICT

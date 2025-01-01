@@ -1,5 +1,6 @@
 const CrudRepository = require('./crud_repo');
 const {db}=require('../config/index');
+const {Logger}=require('../config/index');
 
 // creating resturant class extending all the properties of CrudRepository
 class Interactions extends CrudRepository {
@@ -19,6 +20,7 @@ class Interactions extends CrudRepository {
             const [response]=await db.query(query,[restaurant_id]);
             //console.log(response);
             if(response?.count===0){
+                Logger.warn(`No Interactions found for Restaurant_id ${restaurant_id} in table interactions`);
                 throw new AppError([
                     `No Interactions found for Restaurant_id ${restaurant_id} in table interactions `],
                     StatusCodes.NOT_FOUND
@@ -27,6 +29,7 @@ class Interactions extends CrudRepository {
             return this.create(data);
         }
         catch(error){
+            Logger.error(`Error in createInteraction method`);
             console.log("Error in createInteraction method -> ",error);
 
             // Handel Unexpected Error
@@ -57,6 +60,7 @@ class Interactions extends CrudRepository {
 
             // Check if any POCs exist for the restaurant_id
             if(response.length===0){
+                Logger.warn(`No Interactions found for Restaurant_id ${restaurant_id} in table interactions`);
                 throw new AppError([
                     `No Interactions found for Restaurant_id ${restaurant_id} in table interactions `],
                     StatusCodes.NOT_FOUND
@@ -67,6 +71,7 @@ class Interactions extends CrudRepository {
             return response;
         }
         catch(error){
+            Logger.error(`Error in getAllInteractionsByRestaurantId method`);
             console.log("Error in getAllInteractionsByRestaurantId method -> ",error);
 
             // Handel Unexpected Error

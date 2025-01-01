@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: './src/.env' });
+const {Logger}=require('../config/index');
 
 const authz = async (req, res, next) => {
     try {
@@ -13,6 +14,7 @@ const authz = async (req, res, next) => {
         //console.log("cookies ",req.cookies.token);
         //console.log("header ",req.header("Authorization").replace("Bearer ",""))
         if (!token) {
+            Logger.error(`token is missing in authz MiddleWare`)
             return res.status(401).json({
                 success: false,
                 message: "Token is missing"
@@ -25,12 +27,14 @@ const authz = async (req, res, next) => {
 
             req.user = payload;
         } catch (error) {
+            Logger.error(`Token is invalid`)
             return res.status(401).json({
                 success: false,
                 message: "Token is invalid"
             });
         }
     } catch (error) {
+        Logger.error(error.message);
         console.log(error);
         return res.status(500).json({
             success: false,
@@ -46,6 +50,7 @@ const roleAuthorization = (roles) => {
     return async (req, res, next) => {
         const userRole = req.user.role; // Assume req.user is set from auth middleware
         if (!roles.includes(userRole)) {
+            Logger.error(`Access denied: You do not have the necessary permissions.`)
             return res.status(403).json({
                 success: false,
                 message: 'Access denied: You do not have the necessary permissions.',

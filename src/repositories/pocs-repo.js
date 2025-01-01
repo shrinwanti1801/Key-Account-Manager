@@ -2,6 +2,7 @@ const CrudRepository = require('./crud_repo');
 const {db}=require('../config/index');
 const { AppError } = require('../utils');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // creating resturant class extending all the properties of CrudRepository
 class POCS extends CrudRepository {
@@ -21,6 +22,7 @@ class POCS extends CrudRepository {
             const [response]=await db.query(query,[restaurant_id]);
             //console.log(response);
             if(response?.count===0){
+                Logger.warn(`No Restaurants found for Restaurant_id ${restaurant_id} in table restaurants`);
                 throw new AppError([
                     `No Restaurants found for Restaurant_id ${restaurant_id} in table restaurants `],
                     StatusCodes.NOT_FOUND
@@ -30,6 +32,7 @@ class POCS extends CrudRepository {
             return this.create(data);
         }
         catch(error){
+            Logger.error(`Error in createPocs method `);
             console.log("Error in createPocs method -> ",error);
 
             // Handel Unexpected Error
@@ -59,6 +62,7 @@ class POCS extends CrudRepository {
 
             // Check if any POCs exist for the restaurant_id
             if(response.length===0){
+                Logger.warn(`No POCs found for Restaurant_id ${restaurant_id} in table poc `);
                 throw new AppError([
                     `No POCs found for Restaurant_id ${restaurant_id} in table poc `],
                     StatusCodes.NOT_FOUND
@@ -66,9 +70,11 @@ class POCS extends CrudRepository {
             }
 
             // Return all POCs for the Restaurant
+            Logger.info(`Fetched a;; POCs for the Restaurant`);
             return response;
         }
         catch(error){
+            Logger.error(`Error in getAllPOCsById method`);
             console.log("Error in getAllPOCsById method -> ",error);
 
             // Handel Unexpected Error
@@ -107,17 +113,20 @@ class POCS extends CrudRepository {
     
             // Check if any rows were affected (resource deleted)
             if (response.affectedRows === 0) {
+                Logger.warn(`Resource with ID ${id} not found in table ${this.tableName}`);
                 throw new AppError(
                     [`Resource with ID ${id} not found in table ${this.tableName}`],
                     StatusCodes.NOT_FOUND
                 );
             }
     
+            Logger.info(`Resource with ID ${id} successfully deleted`);
             return {
                 message: `Resource with ID ${id} successfully deleted`,
                 deleted: true,
             };
         } catch (error) {
+            Logger.error(`Error in destroy method `);
             console.error("Error in destroy method ->", error);
     
             // Handle unexpected errors
@@ -127,7 +136,7 @@ class POCS extends CrudRepository {
                     StatusCodes.INTERNAL_SERVER_ERROR
                 );
             }
-            
+
             // Re-throw known AppError
             throw error;
         }

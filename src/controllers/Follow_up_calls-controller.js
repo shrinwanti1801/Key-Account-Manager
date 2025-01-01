@@ -1,6 +1,7 @@
 
 var {SuccessResponse,ErrorResponse, AppError}=require('../utils/index');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // importing services for FollowUpCalls
 const { createFollowUpCalls,
@@ -23,6 +24,7 @@ const createFollowUpCallsController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(201).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in createFollowUpCallsController`);
         ErrorResponse = new AppError([`${error.message || 'Internal Server Error'}`],`${error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR}`);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -37,6 +39,7 @@ const getFollowUpCallsByIdController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getFollowUpCallsByIdController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -52,6 +55,7 @@ const getAllFollowUpCallsByRestaurantId = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllFollowUpCallsByRestaurantId`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -67,6 +71,7 @@ const getAllFollowUpCallsByPocsId = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllFollowUpCallsByPocsId`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -80,6 +85,7 @@ const getAllFollowUpCallsController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllFollowUpCallsController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -97,6 +103,7 @@ const updateFollowUpCallsController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in updateFollowUpCallsController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -112,6 +119,7 @@ const deleteFollowUpCallsController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in deleteFollowUpCallsController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }

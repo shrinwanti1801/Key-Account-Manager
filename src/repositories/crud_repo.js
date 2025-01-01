@@ -2,6 +2,7 @@
 const { StatusCodes } = require('http-status-codes');
 const {AppError}=require('../utils/index');
 const {db}=require('../config/index');
+const {Logger}=require('../config/index');
 
 // CrudRepository class
 class CrudRepository {
@@ -32,8 +33,10 @@ class CrudRepository {
     
             //console.log("Response ->", response);
     
+            Logger.info(`Data in ${this.tableName} inserted SuccessFully`);
             return response; // Return the actual response from the database
         } catch (error) {
+            Logger.error(`Error while inserting data into the database`);
             console.error("Error while inserting data into the database:", error);
     
             // Throw a more descriptive error using AppError
@@ -51,17 +54,20 @@ class CrudRepository {
     
             // Check if any rows were affected (resource deleted)
             if (response.affectedRows === 0) {
+                Logger.warn(`No Row Deleted`);
                 throw new AppError(
                     [`Resource with ID ${id} not found in table ${this.tableName}`],
                     StatusCodes.NOT_FOUND
                 );
             }
     
+            Logger.info(`Resource with ID ${id} successfully deleted`);
             return {
                 message: `Resource with ID ${id} successfully deleted`,
                 deleted: true,
             };
         } catch (error) {
+            Logger.error(`Error in destroy method`);
             console.error("Error in destroy method ->", error);
     
             // Handle unexpected errors
@@ -89,15 +95,17 @@ class CrudRepository {
             
             // Check if the resource exists
             if (response.length === 0) {
+                Logger.warn(`Resource with ID ${id} not found in table ${this.tableName}`);
                 throw new AppError(
                     [`Resource with ID ${id} not found in table ${this.tableName}`],
                     StatusCodes.NOT_FOUND
                 );
             }
     
-            
+            Logger.info(`Entry Fetched SuccessFully for id ${id}`);
             return response[0]; // Return the first matching record
         } catch (error) {
+            Logger.error(`Error in get method`);
             console.error("Error in get method ->", error);
     
             // Handle unexpected errors
@@ -121,8 +129,10 @@ class CrudRepository {
     
             //console.log("Query Response ->", response);
     
+            Logger.info(`Data Fetched SuccessFully`);
             return response; // Return all resources
         } catch (error) {
+            Logger.error(`Error while fetching all resources`);
             console.error("Error while fetching all resources ->", error);
     
             // Wrap unexpected errors in a consistent AppError
@@ -151,17 +161,20 @@ class CrudRepository {
     
             // Check if the update affected any rows
             if (response.affectedRows === 0) {
+                Logger.warn(`Resource with ID ${id} not found in table ${this.tableName}`);
                 throw new AppError(
                     [`Resource with ID ${id} not found in table ${this.tableName}`],
                     StatusCodes.NOT_FOUND
                 );
             }
     
+            Logger.info(`Resource with ID ${id} successfully updated`);
             return {
                 message: `Resource with ID ${id} successfully updated`,
                 updated: true,
             };
         } catch (error) {
+            Logger.error(`Error while updating resource`);
             console.error("Error while updating resource ->", error);
     
             if (!error.statusCode) {

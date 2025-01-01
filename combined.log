@@ -1,0 +1,47 @@
+2025-01-01 16:57:51 : error: name or address missing in validatecreateRes method
+2025-01-01 17:47:36 : info: Connected to MySQL database.
+2025-01-01 17:47:48 : info: Connected to MySQL database.
+2025-01-01 17:48:48 : info: Connected to MySQL database.
+2025-01-01 17:49:07 : info: Connected to MySQL database.
+2025-01-01 17:49:27 : info: Connected to MySQL database.
+2025-01-01 17:50:12 : info: Connected to MySQL database.
+2025-01-01 17:50:47 : info: Connected to MySQL database.
+2025-01-01 17:51:39 : info: Connected to MySQL database.
+2025-01-01 17:52:15 : info: Connected to MySQL database.
+2025-01-01 17:53:43 : info: Connected to MySQL database.
+2025-01-01 17:53:49 : info: Connected to MySQL database.
+2025-01-01 17:57:08 : info: Connected to MySQL database.
+2025-01-01 17:57:20 : info: Connected to MySQL database.
+2025-01-01 17:59:05 : info: Connected to MySQL database.
+2025-01-01 17:59:43 : info: Connected to MySQL database.
+2025-01-01 17:59:47 : info: Connected to MySQL database.
+2025-01-01 17:59:51 : info: Connected to MySQL database.
+2025-01-01 18:00:47 : info: Connected to MySQL database.
+2025-01-01 18:01:25 : info: Connected to MySQL database.
+2025-01-01 18:03:37 : info: Connected to MySQL database.
+2025-01-01 18:04:21 : info: Connected to MySQL database.
+2025-01-01 18:04:44 : info: Data Fetched SuccessFully
+2025-01-01 18:04:50 : info: Data Fetched SuccessFully
+2025-01-01 18:05:06 : info: Data Fetched SuccessFully
+2025-01-01 18:10:54 : info: Connected to MySQL database.
+2025-01-01 18:12:28 : info: Connected to MySQL database.
+2025-01-01 18:12:36 : info: Connected to MySQL database.
+2025-01-01 18:12:52 : info: Connected to MySQL database.
+2025-01-01 18:13:09 : info: Connected to MySQL database.
+2025-01-01 18:13:25 : info: Data in orders inserted SuccessFully
+2025-01-01 18:13:25 : info: Account Performance Created SuccessFully
+2025-01-01 18:13:38 : warn: Resource with ID 1 not found in table accounts_performance
+2025-01-01 18:13:38 : error: Error in get method
+2025-01-01 18:13:38 : error: Error in getAccountPerformanceByIdController
+2025-01-01 18:13:46 : info: Data Fetched SuccessFully
+2025-01-01 18:14:33 : info: Connected to MySQL database.
+2025-01-01 18:14:38 : error: Error while inserting data into the database
+2025-01-01 18:15:02 : info: Connected to MySQL database.
+2025-01-01 18:15:05 : info: Account Performance Created SuccessFully
+2025-01-01 18:15:05 : info: Data in orders inserted SuccessFully
+2025-01-01 18:15:10 : info: Data Fetched SuccessFully
+2025-01-01 18:17:37 : info: Connected to MySQL database.
+2025-01-01 18:17:43 : info: Data in orders inserted SuccessFully
+2025-01-01 18:17:43 : info: Updated performance record for restaurant_id: 4
+2025-01-01 18:17:47 : info: Data Fetched SuccessFully
+2025-01-01 18:18:03 : info: Connected to MySQL database.

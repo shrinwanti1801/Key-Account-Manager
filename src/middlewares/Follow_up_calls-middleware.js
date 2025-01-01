@@ -2,6 +2,7 @@
 const {ErrorResponse, AppError}=require("../utils/index");
 const {SuccessResponse}=require("../utils/index");
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 const moment = require('moment');
 
 // create FollowUpCalls, validate
@@ -24,6 +25,7 @@ const validateCreateFollowUpCalls=async (req,res,next)=>{
         console.log("first",req.body);
         //console.log(name,address);
         if(!restaurant_id || !poc_id || !scheduled_date || !call_frequency || !status || !notes){
+            Logger.error(`Fields are missing in validateCreateFollowUpCalls MiddleWare`);
             ErrorResponse.error=new AppError(["Fields are required"], 400);;
             return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
         }
@@ -39,6 +41,7 @@ const validateCreateFollowUpCalls=async (req,res,next)=>{
         next();
     }
     catch(error){
+        Logger.error(`An error occurred during validation in validateCreateFollowUpCalls MiddleWare`);
         ErrorResponse.error=new AppError(["An error occurred during validation"], 500);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -59,6 +62,7 @@ const validateUpadteFollowUpCalls = (req, res, next) => {
 
     // Check if ID is provided
     if (!id) {
+        Logger.error(`Follow Up Calls ID is missing in validateUpadteFollowUpCalls MiddleWare`);
         const error = new AppError(["FollowUpID ID is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
@@ -66,6 +70,7 @@ const validateUpadteFollowUpCalls = (req, res, next) => {
     //console.log(last_call_date);
     // Check if data is provided
     if (!poc_id && !scheduled_date && !call_frequency && !status && !notes && !last_call_date) {
+        Logger.error(`All feilds are missing in validateUpadteFollowUpCalls MiddleWare`);
         const error = new AppError(["All feilds are missing"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
@@ -78,6 +83,7 @@ const validateDeleteFollowUpCalls = (req, res, next) => {
     const { id } = req.params;
     
     if (!id) {
+        Logger.error(`Follow Up Calls ID is missing in validateDeleteFollowUpCalls MiddleWare`);
         const error = new AppError(["FollowUpCalls ID is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
@@ -91,6 +97,7 @@ const validateRestaurantId = (req, res, next) => {
     // console.log("Yes");
     // console.log(restaurant_id);
     if (!restaurant_id) {
+        Logger.error(`restaurant_id is missing in validateRestaurantId MiddleWare`);
         const error = new AppError(["restaurant_id is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }
@@ -104,6 +111,7 @@ const validatePOcsId = (req, res, next) => {
     // console.log("Yes");
     // console.log(restaurant_id);
     if (!poc_id) {
+        Logger.error(`poc_id is missing in validatePOcsId MiddleWare`);
         const error = new AppError(["poc_id is required"], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST).json({ error });
     }

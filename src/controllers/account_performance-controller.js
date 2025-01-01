@@ -1,6 +1,7 @@
 
 var {SuccessResponse,ErrorResponse, AppError}=require('../utils/index');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // importing services for account performance
 const { createAccountsPerformance,
@@ -23,6 +24,7 @@ const createAccountPerformanceController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(201).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in createAccountPerformanceController`);
         ErrorResponse = new AppError([`${error.message || 'Internal Server Error'}`],`${error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR}`);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -37,6 +39,7 @@ const getAccountPerformanceByIdController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAccountPerformanceByIdController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -52,6 +55,7 @@ const getAllAccountPerformanceByRestaurantId = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllAccountPerformanceByRestaurantId`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -65,6 +69,7 @@ const getAllAccountPerformanceController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllAccountPerformanceController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -80,6 +85,7 @@ const deleteAccountPerformanceController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in deleteAccountPerformanceController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }

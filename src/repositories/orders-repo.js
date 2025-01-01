@@ -1,5 +1,9 @@
 const CrudRepository = require('./crud_repo');
 const {db}=require('../config/index');
+const {Logger}=require('../config/index');
+const AccountsPerformance=require('./accounts_performance-repo');
+
+var accountsPerformance=new AccountsPerformance();
 
 // creating resturant class extending all the properties of CrudRepository
 class Orders extends CrudRepository {
@@ -19,15 +23,18 @@ class Orders extends CrudRepository {
             const [response]=await db.query(query,[restaurant_id]);
             //console.log(response);
             if(response?.count===0){
+                Logger.warn(`No Restaurants found for Restaurant_id ${restaurant_id} in table restaurants `);
                 throw new AppError([
                     `No Restaurants found for Restaurant_id ${restaurant_id} in table restaurants `],
                     StatusCodes.NOT_FOUND
                 );
             }
 
+            accountsPerformance.create(data);
             return this.create(data);
         }
         catch(error){
+            Logger.error(`Error in createOrder method`);
             console.log("Error in createOrder method -> ",error);
 
             // Handel Unexpected Error
@@ -58,6 +65,7 @@ class Orders extends CrudRepository {
 
             // Check if any POCs exist for the restaurant_id
             if(response.length===0){
+                Logger.warn(`No Orders found for Restaurant_id ${restaurant_id} in table orders`);
                 throw new AppError([
                     `No Orders found for Restaurant_id ${restaurant_id} in table orders `],
                     StatusCodes.NOT_FOUND
@@ -68,6 +76,7 @@ class Orders extends CrudRepository {
             return response;
         }
         catch(error){
+            Logger.error(`Error in getAllOrdersByRestaurantId method`);
             console.log("Error in getAllOrdersByRestaurantId method -> ",error);
 
             // Handel Unexpected Error

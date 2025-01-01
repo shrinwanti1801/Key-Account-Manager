@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config({ path: './src/.env' });
+const logger =require('./logger-config');
 
 // MySQL Connection Setup
 // MySQL Connection Setup with Promises
@@ -20,8 +21,10 @@ const connectDB = async () => {
     try {
         const connection = await db.getConnection();
         console.log('Connected to MySQL database.');
+        logger.info(`Connected to MySQL database.`);
         connection.release(); // Release the connection back to the pool
     } catch (err) {
+        logger.error(`Error connecting to MySQL ${err.message}`);
         console.error('Error connecting to MySQL:', err.message);
         throw err;
     }

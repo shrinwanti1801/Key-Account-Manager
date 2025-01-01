@@ -1,6 +1,7 @@
 
 var {SuccessResponse,ErrorResponse, AppError}=require('../utils/index');
 const { StatusCodes } = require('http-status-codes');
+const {Logger}=require('../config/index');
 
 // importing services for resturants
 const { createOrder,
@@ -21,6 +22,7 @@ const createOrderController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(201).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in createOrderController`);
         ErrorResponse = new AppError([`${error.message || 'Internal Server Error'}`],`${error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR}`);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -35,6 +37,7 @@ const getOrderByIdController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getOrderByIdController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -50,6 +53,7 @@ const getAllOrdersByRestaurantId = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllOrdersByRestaurantId`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -63,6 +67,7 @@ const getAllOrdersController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in getAllOrdersController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -79,6 +84,7 @@ const updateOrderController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in updateOrderController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
@@ -94,6 +100,7 @@ const deleteOrderController = async (req, res) => {
         SuccessResponse.data=result;
         return res.status(200).json(SuccessResponse);
     } catch (error) {
+        Logger.error(`Error in deleteOrderController`);
         ErrorResponse.error = new AppError([`${error.message || 'Internal Server Error'}`], error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
         return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
