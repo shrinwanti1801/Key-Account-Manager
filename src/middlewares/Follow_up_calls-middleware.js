@@ -2,6 +2,7 @@
 const {ErrorResponse, AppError}=require("../utils/index");
 const {SuccessResponse}=require("../utils/index");
 const { StatusCodes } = require('http-status-codes');
+const moment = require('moment');
 
 // create FollowUpCalls, validate
 const validateCreateFollowUpCalls=async (req,res,next)=>{
@@ -9,22 +10,32 @@ const validateCreateFollowUpCalls=async (req,res,next)=>{
 
         // validation
         const { poc_id,
+                restaurant_id,
                 scheduled_date,
                 call_frequency,
                 status,
                 notes }=req.body;
+ 
 
         var last_call_date = req?.body?.last_call_date;
         if(!last_call_date)
         last_call_date=null;
 
-        // console.log(req.body);
-
+        console.log("first",req.body);
         //console.log(name,address);
-        if(!poc_id || !scheduled_date || !call_frequency || !status || !notes){
+        if(!restaurant_id || !poc_id || !scheduled_date || !call_frequency || !status || !notes){
             ErrorResponse.error=new AppError(["Fields are required"], 400);;
             return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
         }
+
+
+        //console.log(req.body);
+
+        //console.log(req.body);
+        req.scheduled_date=moment.utc(scheduled_date).toISOString();
+        if(last_call_date)
+        req.last_call_date=moment.utc(last_call_date).toISOString();
+
         next();
     }
     catch(error){

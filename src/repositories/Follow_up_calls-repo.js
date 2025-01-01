@@ -42,6 +42,7 @@ class FollowUpCalls extends CrudRepository {
                 );
             }
 
+            //console.log(data);
             return this.create(data);
         }
         catch(error){
