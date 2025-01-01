@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authz, roleAuthorization }=require('../../middlewares/Authz');
 
 // importing middlewares for Interactions
 const {
@@ -20,11 +21,11 @@ const {
 } = require('../../controllers/interactions-controller');
 
 // Define routes
-router.post('/interactions', validateCreateInteraction, createInteractionController);
-router.put('/interactions/:id', validateUpadteInteraction, updateInteractionController);
-router.delete('/interactions/:id', validateDeleteInteraction, deleteInteractionController);
-router.get('/interactions/:id', getInteractionByIdController);
-router.get('/interactions', getAllInteractionsController);
-router.get('/interactions/restinter/:restaurant_id', validateRestaurantId,getAllInteractionsByRestaurantId);
+router.post('/interactions', authz, roleAuthorization(['Admin', 'Manager']),validateCreateInteraction, createInteractionController);
+router.put('/interactions/:id', authz, roleAuthorization(['Admin', 'Manager']),validateUpadteInteraction, updateInteractionController);
+router.delete('/interactions/:id',authz, roleAuthorization(['Admin']), validateDeleteInteraction, deleteInteractionController);
+router.get('/interactions/:id',authz, roleAuthorization(['Admin', 'Manager', 'KAM']), getInteractionByIdController);
+router.get('/interactions', authz, roleAuthorization(['Admin', 'Manager', 'KAM']),getAllInteractionsController);
+router.get('/interactions/restinter/:restaurant_id',authz, roleAuthorization(['Admin', 'Manager', 'KAM']), validateRestaurantId,getAllInteractionsByRestaurantId);
 
 module.exports = router;

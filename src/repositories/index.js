@@ -4,6 +4,7 @@ const Orders=require('./orders-repo');
 const Interactions=require('./interactions-repo');
 const FollowUpCalls=require('./Follow_up_calls-repo');
 const AccountsPerformance=require('./accounts_performance-repo');
+const Auth=require('./auth-repo');
 
 module.exports={
     Restaurants,
@@ -11,5 +12,6 @@ module.exports={
     Orders,
     Interactions,
     FollowUpCalls,
-    AccountsPerformance
+    AccountsPerformance,
+    Auth
 };

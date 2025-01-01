@@ -1,6 +1,5 @@
 const CrudRepository = require('./crud_repo');
 const {db}=require('../config/index');
-const { query } = require('express');
 const { StatusCodes } = require('http-status-codes');
 const {AppError}=require('../utils/index');
 

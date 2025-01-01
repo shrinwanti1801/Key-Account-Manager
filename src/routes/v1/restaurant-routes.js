@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authz, roleAuthorization }=require('../../middlewares/Authz');
 
 // importing middlewares for resturants
 const {
@@ -18,10 +19,10 @@ const {
 } = require('../../controllers/restaurant-controller');
 
 // Define routes
-router.post('/restaurants', validatecreateRes, createRestaurantController);
-router.put('/restaurants/:id', validateUpdateRestaurant, updateRestaurantController);
-router.delete('/restaurants/:id', validateDeleteRestaurant, deleteRestaurantController);
-router.get('/restaurants/:id', getRestaurantByIdController);
-router.get('/restaurants', getAllRestaurantsController);
+router.post('/restaurants',authz,roleAuthorization(['Admin', 'Manager']), validatecreateRes, createRestaurantController);
+router.put('/restaurants/:id', authz,roleAuthorization(['Admin', 'Manager']), validateUpdateRestaurant, updateRestaurantController);
+router.delete('/restaurants/:id',authz,roleAuthorization(['Admin']),  validateDeleteRestaurant, deleteRestaurantController);
+router.get('/restaurants/:id', authz, roleAuthorization(['Admin', 'Manager', 'KAM']), getRestaurantByIdController);
+router.get('/restaurants', authz, roleAuthorization(['Admin', 'Manager', 'KAM']), getAllRestaurantsController);
 
 module.exports = router;
