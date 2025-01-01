@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser')
 const fileUpload=require('express-fileupload');
 const cors = require("cors");
 // require('./src/cron/cron-job');
+const createTables=require('./src/config/create-tables');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -33,3 +34,4 @@ app.listen(PORT,()=>{
 
 
 connectDB();
+createTables();

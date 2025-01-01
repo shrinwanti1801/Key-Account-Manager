@@ -4,6 +4,8 @@ const logger =require('./logger-config');
 
 // MySQL Connection Setup
 // MySQL Connection Setup with Promises
+
+// for development
 const db = mysql.createPool({
     host: 'localhost',
     user: process.env.user, // replace with your MySQL username
@@ -15,6 +17,29 @@ const db = mysql.createPool({
 });
 
 
+// for test
+const testDb = mysql.createPool({
+    host: process.env.TEST_DB_HOST,
+    user: process.env.TEST_DB_USER,
+    password: process.env.TEST_DB_PASSWORD,
+    database: process.env.TEST_DB_NAME,
+    port: process.env.TEST_DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+});
+
+// for production
+const productionDb = mysql.createPool({
+    host: process.env.PROD_DB_HOST,
+    user: process.env.PROD_DB_USER,
+    password: process.env.PROD_DB_PASSWORD,
+    database: process.env.PROD_DB_NAME,
+    port: process.env.PROD_DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10,  
+    queueLimit: 0,       
+});
 
 // Connect to MySQL
 const connectDB = async () => {
@@ -33,5 +58,8 @@ const connectDB = async () => {
 
 
 // Initialize Database Setup
-module.exports = {db,connectDB};
+module.exports = {
+    db,
+    connectDB
+};
 
