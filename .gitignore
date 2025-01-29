@@ -1,0 +1,60 @@
+# Node.js dependencies
+/node_modules/
+
+# Environment variables file
+.env
+
+# Logs
+logs/
+*.log
+
+# Debug and IDE files
+.vscode/
+.idea/
+
+# Dependency directories
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build directories
+/dist/
+/build/
+/public/
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# Test coverage reports
+/coverage/
+
+# MySQL Database files
+*.sql
+*.sqlite
+
+# NPM package lock
+package-lock.json
+yarn.lock
+
+# npm and yarn debug logs
+npm-debug.log*
+
+# VSCode settings folder
+.vscode/
+
+# Generated folders and files by the IDE
+.idea/
+
+# .env files (if you don't want to track environment files)
+.env.local
+.env.*.local
+
+# Bower and other dependency manager files
+bower_components/
+
+# TypeScript output directory
+/dist/
+
+# Temporary files
+*.swp

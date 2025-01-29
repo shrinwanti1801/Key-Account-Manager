@@ -23,6 +23,6 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "Sagar",
+  "author": "Shrinwanti",
   "license": "ISC"
 }
